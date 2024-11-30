@@ -1,0 +1,11 @@
+{
+    "manifest_version": 3,
+    "name": "AI Learner",
+    "version": "1.0",
+    "description": "Get summaries and questions from youttube videos.",
+    "action": {
+      "default_popup": "index.html"
+    },
+    "permissions": []
+  }
+  

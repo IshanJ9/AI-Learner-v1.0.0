@@ -1,17 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, Response
 from youtube_transcript_api import YouTubeTranscriptApi
 
-from flask_cors import CORS
-
 app = Flask(__name__)
-CORS(app)
 
-@app.route('/receive_url', methods=['POST'])
+@app.route('/receive_url', methods=['GET'])
 def receive_url():
-    # Extract the URL from the JSON payload
-    data = request.json
-    url = data.get('url', '')
-    print(f"Received URL: {url}")
+    # Get the URL from the query parameters
+    url = request.args.get('url', '')
+
+    if not url:
+        return Response("No URL provided", mimetype="text/plain", status=400)
 
     try:
         # Extract video ID from the YouTube URL
@@ -20,14 +18,13 @@ def receive_url():
         # Fetch the transcript using the video ID
         transcript_list = YouTubeTranscriptApi.get_transcript(video_id)
         transcript = ' '.join([d['text'] for d in transcript_list])
-        print(transcript)
 
-        # Return the transcript as a JSON response
-        return jsonify({"success": True, "transcript": transcript})
-        
+        # Return the transcript as plain text
+        return Response(transcript, mimetype="text/plain")
+
     except Exception as e:
-        # Handle errors (e.g., invalid URL, no transcript available)
-        return jsonify({"success": False, "error": str(e)})
+        # Handle errors (return the error as plain text)
+        return Response(str(e), mimetype="text/plain", status=500)
 
 if __name__ == "__main__":
     app.run(debug=True)

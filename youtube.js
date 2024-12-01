@@ -1,37 +1,51 @@
+      // Function to retrieve the current active tab's URL
+async function getCurrentTab() { 
+  let queryOptions = { active: true, lastFocusedWindow: true };
+  let [tab] = await chrome.tabs.query(queryOptions);
+  const url = tab.url;
 
-    document.getElementById("go-back").addEventListener("click", () => {
+  // Disable the button during processing
+  const btn = document.getElementById("summarize");
+  btn.disabled = true;
+  btn.innerHTML = "Fetching Transcript...";
+
+  // Call the function to fetch the transcript from the backend
+  fetchTranscript(url, btn);
+}
+
+// Function to send GET request and fetch the transcript from the Flask backend
+function fetchTranscript(url, btn) {
+  // Construct the URL with the YouTube video URL as a query parameter
+  const requestUrl = `http://127.0.0.1:5000/receive_url?url=${encodeURIComponent(url)}`;
+
+  // Use GET request to fetch the transcript
+  fetch(requestUrl)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Error fetching transcript: " + response.statusText);
+          }
+          return response.text(); // Parse plain text response
+      })
+      .then(transcript => {
+          // Display the transcript
+          const outputElement = document.getElementById("output");
+          outputElement.innerHTML = transcript;
+      })
+      .catch(error => {
+          console.error("Error:", error);
+          alert(`Error: ${error.message}`);
+      })
+      .finally(() => {
+          // Re-enable the button after processing
+          btn.disabled = false;
+          btn.innerHTML = "Fetch Transcript";
+      });
+}
+
+// Add event listener to the button
+document.getElementById("summarize").addEventListener("click", getCurrentTab());
+
+ document.getElementById("go-back").addEventListener("click", () => {
       window.location.href = "index.html";
     });
-      
-    async function getCurrentTab() { 
-      let queryOptions = { active: true, lastFocusedWindow: true };
-      let [tab] = await chrome.tabs.query(queryOptions);
-      const url = tab.url;
     
-      // Send the URL to the Python backend
-      fetch("http://127.0.0.1:5000/receive_url", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ url: url })
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              // Display the transcript
-              const outputElement = document.getElementById("output");
-              outputElement.innerHTML = data.transcript;
-          } else {
-              // Handle errors
-              console.error("Error:", data.error);
-              alert(`Error: ${data.error}`);
-          }
-      })
-      .catch(error => console.error("Error sending URL to backend:", error));
-  }
-  document.getElementById("summarize").addEventListener("click", () => {
-    getCurrentTab();
-    
-});
-  

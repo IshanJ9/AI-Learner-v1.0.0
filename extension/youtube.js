@@ -28,6 +28,7 @@ function fetchTranscript(url, btn) {
       })
       .then(transcript => {
           // Display the transcript
+          const trans = transcript;
           const outputElement = document.getElementById("output");
           outputElement.innerHTML = transcript;
       })
@@ -42,8 +43,28 @@ function fetchTranscript(url, btn) {
       });
 }
 
+async function promptAPI() {
+    const { available, defaultTemperature, defaultTopK, maxTopK } =
+      await ai.languageModel.capabilities();
+  
+    console.log(available);
+  
+    if (available !== "no") {
+      const session = await ai.languageModel.create({
+        systemPrompt: trans,
+      });
+  
+      const result = await session.prompt(`Generate certain quiz questions based on the given text`);
+      const summaryDiv = document.getElementById('summaryContent');
+      summaryDiv.textContent = result; // Set the summary text
+      const outputElement = document.getElementById("output");
+          outputElement.innerHTML = "";
+    }
+  }
+
 // Add event listener to the button
 document.getElementById("summarize").addEventListener("click", getCurrentTab());
+document.getElementById("summary").addEventListener("click", promptAPI());
 
  document.getElementById("go-back").addEventListener("click", () => {
       window.location.href = "index.html";

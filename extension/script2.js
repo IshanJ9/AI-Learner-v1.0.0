@@ -113,7 +113,7 @@ document
   .getElementById("TranscriptButton")
   .addEventListener("click", getCurrentTab);
 // Event listener for the YouTube video button
-const button = document.getElementById("youtube-video");
-button.addEventListener("click", () => {
-  window.location.href = "prompt.html";
-});
+//const button = document.getElementById("youtube-video");
+// // button.addEventListener("click", () => {
+//   window.location.href = "prompt.html";
+// });

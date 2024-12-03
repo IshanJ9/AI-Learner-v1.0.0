@@ -43,7 +43,3 @@
     document.getElementById("settings-button").addEventListener("click", () => {
       alert("Settings functionality coming soon!");
     });
-
-
-  
-  

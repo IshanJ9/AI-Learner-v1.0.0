@@ -1,17 +1,11 @@
 {
-    "manifest_version": 3,
-    "name": "AI Learner",
-    "version": "1.0",
-    "description": "Get summaries and questions from youttube videos.",
-    "action": {
-      "default_popup": "index.html",
-      "trial_tokens": ["AnlT7gRo/750gGKtoI/A3D2rL5yAQA9wISlLqHGE6vJQinPfk0HiIij5LhWs+iuB7mTeotXmEXkvdpOAC1YjAgAAAG97Im9yaWdpbiI6ImNocm9tZS1leHRlbnNpb246Ly9sampoamFha21uY2lib25uanBhb2dsYmhjamVvbGhrayIsImZlYXR1cmUiOiJJQ2Fubm90QmVsaWV2ZVlvdVdhc3RlZFlvdXJUaW1lRGVjb2RpbmdUaGlzIiwiZXhwaXJ5Ijo1NzI1NDA3OTk5fQ=="]
-    },
-    "permissions": ["activeTab","tabs","aiLanguageModelOriginTrial"],
-    "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ]
-  
-  }
-  
+  "manifest_version": 3,
+  "name": "AI Learner",
+  "version": "1.0",
+  "description": "Get summaries and questions from youttube videos.",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab", "tabs", "aiLanguageModelOriginTrial"],
+  "host_permissions": ["http://*/*", "https://*/*"]
+}

@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Summary</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>YouTube Video Summary</h1>
-    <form>
-      <label for="youtube-link">Enter YouTube Video Link:</label>
-      <!-- <input type="url" id="youtube-link" placeholder="Paste YouTube link here" required> -->
-      <button type="submit" id="summarize">Fetch Transcript</button>
-      <button type="submit" id="summary">Get Summary</button>
-      
-          <div id="output">Transcript will appear here...</div>
-          <div id="summaryContent"></div>
-    
-    </form>
-    <button id="go-back">Go Back</button>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Summary</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>YouTube Video Summary</h1>
+      <form>
+        <label for="youtube-link">Enter YouTube Video Link:</label>
+        <!-- <input type="url" id="youtube-link" placeholder="Paste YouTube link here" required> -->
+        <button type="button" id="summarize">Fetch Transcript</button>
+        <button type="button" id="summary">Get Summary</button>
 
-  <script src="youtube.js"></script>
-</body>
+        <div id="output">Transcript will appear here...</div>
+        <div id="summaryContent"></div>
+      </form>
+      <button id="go-back">Go Back</button>
+    </div>
+
+    <script src="youtube.js"></script>
+  </body>
 </html>
